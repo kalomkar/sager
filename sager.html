@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#08020b;
+    color:white;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,80,150,.22),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(150,50,255,.18),transparent 30%),
+        linear-gradient(135deg,#120414,#2b0925,#100516);
+    z-index:-3;
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(#fff 1px,transparent 1px),
+      radial-gradient(#ffb6d9 1px,transparent 1px);
+    background-size:70px 70px,110px 110px;
+    animation:starsMove 20s linear infinite;
+    opacity:.35;
+    z-index:-2;
+}
+
+@keyframes starsMove{
+    from{transform:translateY(0)}
+    to{transform:translateY(-100px)}
+}
+
+/* ================= SECTIONS ================= */
+
+.page{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:25px;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transform:scale(1.08);
+    transition:1s ease;
+}
+
+.page.active{
+    opacity:1;
+    pointer-events:auto;
+    transform:scale(1);
+}
+
+/* ================= LOCK SCREEN ================= */
+
+.lock{
+    max-width:500px;
+}
+
+.lock .emoji{
+    font-size:75px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-15px)}
+}
+
+.lock h1{
+    font-family:'Pacifico',cursive;
+    font-size:clamp(35px,8vw,65px);
+    color:#ff9acb;
+    text-shadow:0 0 25px #ff3d98;
+    margin:15px 0 5px;
+}
+
+.lock p{
+    color:#ffd5e8;
+    margin-bottom:25px;
+}
+
+.pin{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.pin input{
+    width:60px;
+    height:65px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.08);
+    color:white;
+    text-align:center;
+    font-size:25px;
+    outline:none;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 20px rgba(255,60,150,.15);
+}
+
+.unlock{
+    border:0;
+    padding:13px 35px;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ff4d9d,#a94dff);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(255,50,150,.5);
+    transition:.3s;
+}
+
+.unlock:hover{
+    transform:scale(1.08);
+}
+
+.error{
+    height:22px;
+    color:#ff759f;
+    font-size:13px;
+}
+
+/* ================= BUTTON ================= */
+
+.next{
+    margin-top:35px;
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    color:white;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:.3s;
+}
+
+.next:hover{
+    background:#ff4d9d;
+    transform:translateY(-3px);
+}
+
+/* ================= PLANT ================= */
+
+.plant-page h2{
+    font-family:'Pacifico',cursive;
+    color:#ffb3d8;
+    font-size:40px;
+}
+
+.plant{
+    margin-top:20px;
+    width:220px;
+    height:300px;
+    position:relative;
+}
+
+.pot{
+    position:absolute;
+    bottom:10px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:75px;
+}
+
+.stem{
+    position:absolute;
+    width:8px;
+    height:0;
+    background:#49d86d;
+    bottom:80px;
+    left:50%;
+    transform:translateX(-50%);
+    border-radius:10px;
+    transition:4s ease;
+}
+
+.leaf{
+    position:absolute;
+    font-size:0;
+    opacity:0;
+    transition:1s;
+}
+
+.leaf1{left:55px;bottom:170px}
+.leaf2{right:50px;bottom:210px}
+.leaf3{left:65px;bottom:240px}
+.leaf4{right:55px;bottom:270px}
+
+.growing .stem{
+    height:190px;
+}
+
+.growing .leaf{
+    font-size:45px;
+    opacity:1;
+    animation:leafPop .8s backwards;
+}
+
+.growing .leaf1{animation-delay:1s}
+.growing .leaf2{animation-delay:1.7s}
+.growing .leaf3{animation-delay:2.5s}
+.growing .leaf4{animation-delay:3.2s}
+
+@keyframes leafPop{
+    from{transform:scale(0) rotate(-30deg)}
+    to{transform:scale(1) rotate(0)}
+}
+
+/* ================= QUOTE ================= */
+
+.quote-box{
+    max-width:800px;
+}
+
+.quote-box .big{
+    font-family:'Pacifico',cursive;
+    font-size:clamp(35px,7vw,65px);
+    color:#ff9dca;
+    text-shadow:0 0 25px #ff3d98;
+    min-height:90px;
+}
+
+.quote-box p{
+    max-width:650px;
+    line-height:2;
+    color:#ffe4f1;
+    font-size:17px;
+}
+
+/* ================= PHOTOS ================= */
+
+.photos h2,
+.gift-page h2,
+.question-page h2{
+    font-family:'Pacifico',cursive;
+    color:#ffabd2;
+    font-size:45px;
+}
+
+.photo-grid{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    max-width:850px;
+}
+
+.photo{
+    width:240px;
+    height:280px;
+    border-radius:22px;
+    overflow:hidden;
+    background:linear-gradient(145deg,#ff72af,#6e38ff);
+    padding:6px;
+    transform:rotate(var(--r));
+    transition:.5s;
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.photo:hover{
+    transform:rotate(0) scale(1.08);
+}
+
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:18px;
+}
+
+/*
+   CHANGE THESE IMAGE URLS TO YOUR OWN PHOTOS.
+*/
+
+.photo:nth-child(1){--r:-4deg}
+.photo:nth-child(2){--r:3deg}
+.photo:nth-child(3){--r:-2deg}
+
+/* ================= GIFT ================= */
+
+.gift{
+    font-size:140px;
+    cursor:pointer;
+    animation:giftFloat 2s infinite ease-in-out;
+    filter:drop-shadow(0 0 25px #ff4fa5);
+    transition:.5s;
+}
+
+@keyframes giftFloat{
+    50%{transform:translateY(-18px) rotate(3deg)}
+}
+
+.gift:hover{
+    transform:scale(1.15);
+}
+
+.gift-message{
+    opacity:0;
+    max-width:650px;
+    margin-top:20px;
+    transform:translateY(20px);
+    transition:1s;
+    color:#ffe2ef;
+    line-height:1.8;
+}
+
+.gift-message.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= QUESTION ================= */
+
+.question-page h2{
+    font-size:clamp(35px,7vw,65px);
+}
+
+.question-page p{
+    color:#ffd8e8;
+    margin:15px 0 25px;
+}
+
+.answers{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+}
+
+.answer{
+    padding:13px 35px;
+    border:0;
+    border-radius:30px;
+    font-size:17px;
+    cursor:pointer;
+    color:white;
+}
+
+.yes{
+    background:#ff4d9d;
+    box-shadow:0 0 25px #ff4d9d;
+}
+
+.no{
+    background:#444;
+    position:relative;
+}
+
+/* ================= FINAL ================= */
+
+.final{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:radial-gradient(circle,#7d164f,#15020d 65%);
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+    z-index:20;
+}
+
+.final.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.final h1{
+    font-family:'Pacifico',cursive;
+    font-size:clamp(45px,10vw,90px);
+    color:#ffb1d6;
+    text-shadow:0 0 35px #ff2d91;
+}
+
+.final p{
+    font-size:20px;
+    color:#ffe2ef;
+}
+
+/* ================= HEARTS ================= */
+
+.heart{
+    position:fixed;
+    bottom:-30px;
+    font-size:20px;
+    animation:heartUp linear forwards;
+    pointer-events:none;
+    z-index:10;
+}
+
+@keyframes heartUp{
+    to{
+        transform:translateY(-110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:750px){
+
+    .photo-grid{
+        grid-template-columns:1fr;
+        max-height:65vh;
+        overflow:auto;
+    }
+
+    .photo{
+        width:190px;
+        height:220px;
+    }
+
+    .photos{
+        overflow-y:auto;
+    }
+
+    .lock .emoji{
+        font-size:60px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- ================= PAGE 1 ================= -->
+
+<section class="page active" id="lockPage">
+
+    <div class="lock">
+
+        <div class="emoji">🔐💗</div>
+
+        <h1>Something is waiting...</h1>
+
+        <p>Only one special person can unlock this ✨</p>
+
+        <div class="pin">
+            <input maxlength="1" inputmode="numeric">
+            <input maxlength="1" inputmode="numeric">
+            <input maxlength="1" inputmode="numeric">
+            <input maxlength="1" inputmode="numeric">
+        </div>
+
+        <button class="unlock" onclick="unlock()">Unlock 💕</button>
+
+        <div class="error" id="error"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PAGE 2 ================= -->
+
+<section class="page plant-page" id="plantPage">
+
+    <h2>Watch this little love grow 🌱</h2>
+
+    <div class="plant" id="plant">
+
+        <div class="leaf leaf1">🌿</div>
+        <div class="leaf leaf2">🍃</div>
+        <div class="leaf leaf3">🌿</div>
+        <div class="leaf leaf4">🍃</div>
+
+        <div class="stem"></div>
+
+        <div class="pot">🪴</div>
+
+    </div>
+
+    <p id="plantText">Every beautiful thing starts with something small...</p>
+
+    <button class="next" onclick="showPage('quotePage')">
+        Continue 💗
+    </button>
+
+</section>
+
+
+<!-- ================= PAGE 3 ================= -->
+
+<section class="page" id="quotePage">
+
+    <div class="quote-box">
+
+        <div class="big" id="typing"></div>
+
+        <p>
+            Some people come into our lives quietly...
+            and somehow become the most beautiful part of it.
+            You are one of those people. 💕
+        </p>
+
+        <button class="next" onclick="showPage('photosPage')">
+            A few memories 📸
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PAGE 4 ================= -->
+
+<section class="page photos" id="photosPage">
+
+    <h2>Little pieces of happiness 📸</h2>
+
+    <div class="photo-grid">
+
+        <!-- CHANGE IMAGE URLS HERE -->
+
+        <div class="photo">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80">
+        </div>
+
+        <div class="photo">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80">
+        </div>
+
+        <div class="photo">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80">
+        </div>
+
+    </div>
+
+    <button class="next" onclick="showPage('giftPage')">
+        One more thing... 🎁
+    </button>
+
+</section>
+
+
+<!-- ================= PAGE 5 ================= -->
+
+<section class="page gift-page" id="giftPage">
+
+    <h2>I have something for you 🎁</h2>
+
+    <div class="gift" onclick="openGift()">🎁</div>
+
+    <div class="gift-message" id="giftMessage">
+
+        <h3>✨ Surprise! ✨</h3>
+
+        <p>
+            If I could give you one thing today,
+            it would be the ability to see yourself
+            through my eyes — because then you'd know
+            just how incredibly special you are. 💗
+        </p>
+
+        <button class="next" onclick="showPage('questionPage')">
+            Last question 👀
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PAGE 6 ================= -->
+
+<section class="page question-page" id="questionPage">
+
+    <h2>Will you stay in my story? 💗</h2>
+
+    <p>
+        Because honestly... I'd really like you to. 🥹
+    </p>
+
+    <div class="answers">
+
+        <button class="answer yes" onclick="sayYes()">
+            YES 💕
+        </button>
+
+        <button class="answer no" id="noBtn">
+            NO 😭
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL SCREEN ================= -->
+
+<div class="final" id="final">
+
+    <h1>YAYYY! 💗</h1>
+
+    <p>
+        You just made this little website very happy. 🥹✨
+    </p>
+
+    <div style="font-size:60px;margin-top:20px;">
+        💕🌸🎂🎉💖
+    </div>
+
+</div>
+
+
+<script>
+
+/* ================= PAGE SYSTEM ================= */
+
+function showPage(id){
+
+    document.querySelectorAll('.page').forEach(page=>{
+        page.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+
+    if(id === 'plantPage'){
+        setTimeout(()=>{
+            document.getElementById('plant').classList.add('growing');
+        },400);
+    }
+
+    if(id === 'quotePage'){
+        startTyping();
+    }
+
+    createHearts(12);
+}
+
+
+/* ================= PASSWORD ================= */
+
+const inputs = document.querySelectorAll('.pin input');
+
+inputs.forEach((input,index)=>{
+
+    input.addEventListener('input',()=>{
+
+        if(input.value && index < inputs.length-1){
+            inputs[index+1].focus();
+        }
+
+    });
+
+    input.addEventListener('keydown',(e)=>{
+
+        if(e.key === "Backspace" && !input.value && index > 0){
+            inputs[index-1].focus();
+        }
+
+    });
+
+});
+
+
+function unlock(){
+
+    let code = "";
+
+    inputs.forEach(input=>{
+        code += input.value;
+    });
+
+    if(code === "0809"){
+
+        createHearts(25);
+
+        setTimeout(()=>{
+            showPage('plantPage');
+        },700);
+
+    }else{
+
+        document.getElementById('error').innerText =
+        "Hmm... that's not the magic number 💔";
+
+        inputs.forEach(input=>{
+            input.style.animation = "shake .3s";
+            setTimeout(()=>{
+                input.style.animation = "";
+            },300);
+        });
+
+    }
+
+}
+
+
+/* ================= TYPEWRITER ================= */
+
+let typingStarted = false;
+
+function startTyping(){
+
+    if(typingStarted) return;
+
+    typingStarted = true;
+
+    const text =
+    "Happy Birthday, Handsome Sagar! 🎂💗";
+
+    const target = document.getElementById('typing');
+
+    let i = 0;
+
+    function type(){
+
+        if(i < text.length){
+
+            target.innerHTML += text.charAt(i);
+
+            i++;
+
+            setTimeout(type,80);
+
+        }
+
+    }
+
+    type();
+}
+
+
+/* ================= GIFT ================= */
+
+function openGift(){
+
+    const message = document.getElementById('giftMessage');
+
+    message.classList.add('show');
+
+    createHearts(30);
+
+}
+
+
+/* ================= NO BUTTON ================= */
+
+const noBtn = document.getElementById('noBtn');
+
+noBtn.addEventListener('mouseover',moveNo);
+noBtn.addEventListener('touchstart',moveNo);
+
+function moveNo(){
+
+    const maxX = window.innerWidth / 2 - 100;
+    const maxY = window.innerHeight / 2 - 100;
+
+    const x = Math.random() * maxX * 2 - maxX;
+    const y = Math.random() * maxY * 2 - maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = "50%";
+    noBtn.style.top = "50%";
+
+    noBtn.style.transform =
+    `translate(${x}px,${y}px)`;
+
+}
+
+
+/* ================= YES ================= */
+
+function sayYes(){
+
+    createHearts(70);
+
+    document.getElementById('final')
+    .classList.add('show');
+
+}
+
+
+/* ================= FLOATING HEARTS ================= */
+
+function createHearts(amount){
+
+    const emojis = [
+        "💗","💕","💖","💘",
+        "💝","🌸","✨","💞"
+    ];
+
+    for(let i=0;i<amount;i++){
+
+        const heart = document.createElement('div');
+
+        heart.className = "heart";
+
+        heart.innerText =
+        emojis[Math.floor(Math.random()*emojis.length)];
+
+        heart.style.left =
+        Math.random()*100 + "vw";
+
+        heart.style.animationDuration =
+        (3 + Math.random()*5) + "s";
+
+        heart.style.fontSize =
+        (15 + Math.random()*25) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },9000);
+
+    }
+
+}
+
+
+/* ================= AUTO HEARTS ================= */
+
+setInterval(()=>{
+
+    if(Math.random() > .4){
+        createHearts(1);
+    }
+
+},1500);
+
+
+/* ================= SHAKE ANIMATION ================= */
+
+const style = document.createElement('style');
+
+style.innerHTML = `
+@keyframes shake{
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-8px)}
+    75%{transform:translateX(8px)}
+}
+`;
+
+document.head.appendChild(style);
+
+</script>
+
+</body>
+</html>
